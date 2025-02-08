@@ -1,0 +1,23 @@
+matrix1 <- matrix(1:9, nrow = 3, byrow = TRUE)
+matrix2 <- matrix(9:1, nrow = 3, byrow = TRUE)
+add <- matrix1 + matrix2
+subtract <- matrix1 - matrix2
+multiply <- matrix1 * matrix2
+add
+subtract
+multiply
+
+
+#output
+[,1] [,2] [,3]
+[1,]   10   10   10
+[2,]   10   10   10
+[3,]   10   10   10
+     [,1] [,2] [,3]
+[1,]   -8   -6   -4
+[2,]   -2    0    2
+[3,]    4    6    8
+     [,1] [,2] [,3]
+[1,]    9   16   21
+[2,]   24   25   24
+[3,]   21   16    9
