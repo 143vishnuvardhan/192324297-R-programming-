@@ -1,0 +1,71 @@
+# Load the necessary dataset
+data("airquality")
+
+### (i) Handle Missing Values
+# Check for missing values in each column
+print("Missing values in each feature:")
+print(colSums(is.na(airquality)))
+
+# Handle missing values: If less than 10% of the values are NA, drop them; otherwise, replace with the mean
+threshold <- 0.1 * nrow(airquality)
+
+for (col in names(airquality)) {
+  if (sum(is.na(airquality[[col]])) < threshold) {
+    # Drop rows with missing values
+    airquality <- airquality[!is.na(airquality[[col]]), ]
+  } else {
+    # Replace missing values with the mean of the column
+    airquality[[col]][is.na(airquality[[col]])] <- mean(airquality[[col]], na.rm = TRUE)
+  }
+}
+
+# Verify missing values are handled
+print("After handling missing values:")
+print(colSums(is.na(airquality)))
+
+### (ii) Apply Linear Regression (Least Squares Method) on "Ozone" and "Solar.R"
+# Fit a linear model
+model <- lm(Ozone ~ Solar.R, data = airquality)
+
+# Display the model summary
+print("Linear Regression Model Summary:")
+print(summary(model))
+
+### (iii) Plot Scatter Plot and Add Regression Line
+# Scatter plot of Ozone vs Solar.R
+plot(airquality$Solar.R, airquality$Ozone, 
+     main = "Scatter Plot with Regression Line", 
+     xlab = "Solar Radiation (Solar.R)", 
+     ylab = "Ozone (Ozone)", 
+     pch = 19, col = "blue")
+
+# Add regression line
+abline(model, col = "red", lwd = 2)
+
+#output
+[1] "Missing values in each feature:"
+  Ozone Solar.R    Wind    Temp   Month     Day 
+     37       7       0       0       0       0 
+[1] "After handling missing values:"
+  Ozone Solar.R    Wind    Temp   Month     Day 
+      0       0       0       0       0       0 
+[1] "Linear Regression Model Summary:"
+
+Call:
+lm(formula = Ozone ~ Solar.R, data = airquality)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-44.356 -17.482  -6.556   9.976 120.748 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 23.73051    5.26941   4.503 1.37e-05 ***
+Solar.R      0.09883    0.02552   3.872 0.000163 ***
+ERROR!
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 27.68 on 144 degrees of freedom
+Multiple R-squared:  0.09431,	Adjusted R-squared:  0.08802 
+F-statistic: 14.99 on 1 and 144 DF,  p-value: 0.0001631
