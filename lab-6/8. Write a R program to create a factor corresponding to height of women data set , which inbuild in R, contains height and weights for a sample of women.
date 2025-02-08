@@ -1,0 +1,32 @@
+data("women")
+print("The women dataset:")
+print(women)
+height_factor <- factor(women$height)
+print("The factor corresponding to the heights:")
+print(height_factor)
+print("Levels of the factor:")
+print(levels(height_factor))
+
+#output
+[1] "The women dataset:"
+   height weight
+1      58    115
+2      59    117
+3      60    120
+4      61    123
+5      62    126
+6      63    129
+7      64    132
+8      65    135
+9      66    139
+10     67    142
+11     68    146
+12     69    150
+13     70    154
+14     71    159
+15     72    164
+[1] "The factor corresponding to the heights:"
+ [1] 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72
+Levels: 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72
+[1] "Levels of the factor:"
+ [1] "58" "59" "60" "61" "62" "63" "64" "65" "66" "67" "68" "69" "70" "71" "72"
