@@ -1,0 +1,7 @@
+enrolled <- c(101, 102, 103, 104, 105)  
+passed <- c(102, 104, 106)  
+did_not_pass <- setdiff(enrolled, passed)
+did_not_pass
+
+#output
+[1] 101 103 105
