@@ -1,0 +1,72 @@
+(i) Find any missing values(na) in features and drop the missing values if its less than 10% else replace that with mean of that feat
+code
+# Calculate the percentage of missing values
+> na_percentage <- colMeans(is.na(airquality)) * 100
+> print(na_percentage)
+ #output
+    Ozone   Solar.R      Wind      Temp     Month       Day 
+24.183007  4.575163  0.000000  0.000000  0.000000  0.000000 
+> 
+> # Drop rows with less than 10% missing values or replace with mean
+> airquality_cleaned <- airquality
+> for (col in names(airquality)) {
++   if (na_percentage[col] > 0 && na_percentage[col] < 10) {
++     airquality_cleaned <- airquality_cleaned[!is.na(airquality_cleaned[[col]]), ]
++   } else if (na_percentage[col] >= 10) {
++     airquality_cleaned[[col]][is.na(airquality_cleaned[[col]])] <- mean(airquality_cleaned[[col]], na.rm = TRUE)
++   }
++ }
+> 
+> # Check cleaned data
+> summary(airquality_cleaned)
+#output
+     Ozone           Solar.R           Wind           Temp           Month            Day       
+ Min.   :  1.00   Min.   :  7.0   Min.   : 1.7   Min.   :57.00   Min.   :5.000   Min.   : 1.00  
+ 1st Qu.: 21.00   1st Qu.:115.8   1st Qu.: 7.4   1st Qu.:73.00   1st Qu.:6.000   1st Qu.: 9.00  
+ Median : 42.13   Median :205.0   Median : 9.7   Median :79.00   Median :7.000   Median :16.00  
+ Mean   : 42.11   Mean   :185.9   Mean   :10.0   Mean   :78.12   Mean   :7.027   Mean   :16.12  
+ 3rd Qu.: 45.75   3rd Qu.:258.8   3rd Qu.:11.5   3rd Qu.:84.00   3rd Qu.:8.000   3rd Qu.:23.75  
+ Max.   :168.00   Max.   :334.0   Max.   :20.7   Max.   :97.00   Max.   :9.000   Max.   :31.00  
+
+
+
+(ii) Apply a linear regression algorithm using Least Squares Method on “Ozone” and “Solar.R”
+# Fit a linear regression model
+> linear_model <- lm(Ozone ~ Solar.R, data = airquality_cleaned)
+> 
+> # Summarize the model
+> summary(linear_model)
+#output
+Call:
+lm(formula = Ozone ~ Solar.R, data = airquality_cleaned)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-44.356 -17.482  -6.556   9.976 120.748 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 23.73051    5.26941   4.503 1.37e-05 ***
+Solar.R      0.09883    0.02552   3.872 0.000163 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 27.68 on 144 degrees of freedom
+Multiple R-squared:  0.09431,   Adjusted R-squared:  0.08802 
+F-statistic: 14.99 on 1 and 144 DF,  p-value: 0.0001631
+
+(iii)Plot Scatter plot between Ozone and Solar and add regression line created by above model
+#code
+
+> # Load the necessary library
+> library(ggplot2)
+Error in library(ggplot2) : there is no package called ‘ggplot2’
+> 
+> # Create scatter plot with regression line
+> ggplot(airquality_cleaned, aes(x = Solar.R, y = Ozone)) +
++   geom_point() +
++   geom_smooth(method = "lm", col = "blue") +
++   labs(title = "Scatter Plot of Ozone vs Solar.R", x = "Solar Radiation (Solar.R)", y = "Ozone Level (Ozone)")
+Error in ggplot(airquality_cleaned, aes(x = Solar.R, y = Ozone)) : 
+  could not find function "ggplot"
+
