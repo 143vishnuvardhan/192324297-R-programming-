@@ -1,0 +1,36 @@
+1.Implement data frames in R. Write a program to join columns and rows in a data 
+frame using c bind()and r bind() in R. 
+
+code
+df1 <- data.frame(
+  Name = c("Alice", "Bob", "Charlie"),
+  Age = c(25, 30, 35)
+)
+df2 <- data.frame(
+  Gender = c("F", "M", "M"),
+  Height = c(5.5, 6.0, 5.8)
+)
+df_combined_columns <- cbind(df1, df2)
+print("Combined by columns:")
+print(df_combined_columns)
+df3 <- data.frame(
+  Name = c("David", "Eve"),
+  Age = c(28, 22)
+)
+df_combined_rows <- rbind(df1, df3)
+print("Combined by rows:")
+print(df_combined_rows)
+
+#output
+[1] "Combined by columns:"
+     Name Age Gender Height
+1   Alice  25      F    5.5
+2     Bob  30      M    6.0
+3 Charlie  35      M    5.8
+[1] "Combined by rows:"
+     Name Age
+1   Alice  25
+2     Bob  30
+3 Charlie  35
+4   David  28
+5     Eve  22
