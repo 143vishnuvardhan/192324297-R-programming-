@@ -1,0 +1,30 @@
+1.A company is analysing the salaries of its employees. Apply your understanding of Univariate EDA to 
+calculate and compare the mean, median, and mode of the salary distribution. Discuss the implications 
+of any disparities between these measures. Write R code to calculate the mean, median, and mode of 
+the salary distribution and interpret the results in the context of employee salaries.
+
+CODE: 
+salaries <- c(50000, 60000, 75000, 90000, 100000, 120000, 140000, 200000, 250000, 300000)
+mean_salary <- mean(salaries)
+median_salary <- median(salaries)
+mode_salary <- function(x) {
+  uniq_x <- unique(x)
+  uniq_x[which.max(tabulate(match(x, uniq_x)))]
+}
+mode_salary_value <- mode_salary(salaries)
+cat("Mean Salary: ", mean_salary, "\n")
+cat("Median Salary: ", median_salary, "\n")
+cat("Mode Salary: ", mode_salary_value, "\n")
+if (mean_salary > median_salary) {
+  cat("The salary distribution is right-skewed (positively skewed), meaning there may be a few high-paying employees.")
+} else if (mean_salary < median_salary) {
+  cat("The salary distribution is left-skewed (negatively skewed), indicating that most employees have lower salaries.")
+} else {
+  cat("The salary distribution is symmetric.")
+}
+
+#OUTPUT
+Mean Salary:  138500 
+Median Salary:  110000 
+Mode Salary:  50000 
+The salary distribution is right-skewed (positively skewed), meaning there may be a few high-paying employees.
